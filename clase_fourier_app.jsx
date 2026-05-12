@@ -740,11 +740,6 @@ export default function FourierClass() {
         }}>
           {/* INTRO */}
           <section id="intro">
-            <div style={{
-              fontFamily: "'Inter Tight', sans-serif", fontSize: 11,
-              color: palette.accent, letterSpacing: '0.2em',
-              textTransform: 'uppercase', marginBottom: 6,
-            }}>Clase completa</div>
             <h1 style={{
               fontFamily: "'Fraunces', serif", fontWeight: 500,
               fontSize: 42, lineHeight: 1.05, margin: '0 0 14px',

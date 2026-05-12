@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f8f2e4;
+  color: #1c1a15;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+svg {
+  max-width: 100%;
+}

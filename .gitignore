@@ -10,6 +10,7 @@ node_modules
 dist
 dist-ssr
 .npm-cache
+.netlify
 *.local
 
 # Editor / OS
@@ -18,3 +19,6 @@ dist-ssr
 .idea
 .DS_Store
 Thumbs.db
+
+# Local Netlify folder
+.netlify

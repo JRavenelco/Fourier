@@ -995,6 +995,33 @@ fprintf('Parseval:  tiempo = %.4f   |   frecuencia = %.4f\\n', ...
           <section id="integral" style={{ marginTop: 60 }}>
             <SectionHeader number="3" title="Integral de Fourier (transformada continua)" />
 
+            <ModuleCard kind="motivation" title="Puente desde el video: de lineas a continuo">
+              <p>
+                El video propuesto resume justo la transicion que necesitamos aqui: partir de una
+                serie de Fourier compleja en un intervalo <TeX math="[-L,L]" /> y preguntar que
+                ocurre cuando el periodo <TeX math="2L" /> crece sin limite.
+              </p>
+              <TeX block math={String.raw`f(x)=\sum_k c_k e^{i k \pi x/L}, \qquad \omega_k=\frac{k\pi}{L}, \qquad \Delta\omega=\frac{\pi}{L}`} />
+              <p>
+                Si <TeX math="L" /> aumenta, las frecuencias permitidas se acercan. En el limite
+                <TeX math="L\to\infty" />, las lineas espectrales discretas forman un espectro
+                continuo y la suma se transforma en una integral.
+              </p>
+              <div style={{
+                marginTop: 12,
+                padding: '10px 12px',
+                border: `1px dashed ${palette.rule}`,
+                borderRadius: 4,
+                fontFamily: "'Inter Tight', sans-serif",
+                fontSize: 13,
+                color: palette.inkSoft,
+              }}>
+                Video de apoyo: <a href="https://youtu.be/jVYs-GTqm5U" target="_blank" rel="noreferrer" style={{ color: palette.accent }}>
+                  derivacion de serie de Fourier a transformada de Fourier
+                </a>
+              </div>
+            </ModuleCard>
+
             <ModuleCard kind="motivation">
               <p>
                 La serie de Fourier solo describe señales <em>periódicas</em>. Pero la mayoría de las

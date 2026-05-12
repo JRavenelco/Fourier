@@ -807,6 +807,24 @@ export default function FourierClass() {
               </p>
             </ModuleCard>
 
+            <ModuleCard kind="property" title="Desarrollo: de senos/cosenos a exponenciales">
+              <p>
+                La forma compleja sale directamente de las identidades de Euler. La ventaja no es
+                solo estetica: unifica seno, coseno, amplitud y fase en una sola familia de bases.
+              </p>
+              <TeX block math={String.raw`\cos(\theta)=\frac{e^{j\theta}+e^{-j\theta}}{2}, \qquad \sin(\theta)=\frac{e^{j\theta}-e^{-j\theta}}{2j}`} />
+              <p>
+                Al sustituir estas identidades en la serie trigonometrica, los terminos positivos y
+                negativos se agrupan como exponenciales complejas:
+              </p>
+              <TeX block math={String.raw`x(t)=\sum_{k=-\infty}^{\infty} c_k e^{jk\omega_0 t}`} />
+              <p>
+                En esta lectura, <TeX math="c_k" /> es una proyeccion de la senal sobre la base
+                <TeX math="e^{jk\omega_0 t}" />. Su magnitud indica cuanto pesa esa frecuencia y su
+                angulo indica como esta desfasada.
+              </p>
+            </ModuleCard>
+
             <ModuleCard kind="interpretation">
               El conjunto <TeX math="\{c_k\}_{k\in\mathbb{Z}}" /> es el <strong>espectro discreto</strong> de
               la señal: solo aparecen componentes en frecuencias múltiplos enteros de <TeX math="\omega_0" />.
@@ -995,11 +1013,11 @@ fprintf('Parseval:  tiempo = %.4f   |   frecuencia = %.4f\\n', ...
           <section id="integral" style={{ marginTop: 60 }}>
             <SectionHeader number="3" title="Integral de Fourier (transformada continua)" />
 
-            <ModuleCard kind="motivation" title="Puente desde el video: de lineas a continuo">
+            <ModuleCard kind="motivation" title="Desarrollo: de lineas espectrales a espectro continuo">
               <p>
-                El video propuesto resume justo la transicion que necesitamos aqui: partir de una
-                serie de Fourier compleja en un intervalo <TeX math="[-L,L]" /> y preguntar que
-                ocurre cuando el periodo <TeX math="2L" /> crece sin limite.
+                Partimos de una serie de Fourier compleja en un intervalo <TeX math="[-L,L]" />.
+                Como el periodo es <TeX math="2L" />, las frecuencias permitidas no son arbitrarias:
+                aparecen separadas por una malla regular.
               </p>
               <TeX block math={String.raw`f(x)=\sum_k c_k e^{i k \pi x/L}, \qquad \omega_k=\frac{k\pi}{L}, \qquad \Delta\omega=\frac{\pi}{L}`} />
               <p>
@@ -1007,19 +1025,7 @@ fprintf('Parseval:  tiempo = %.4f   |   frecuencia = %.4f\\n', ...
                 <TeX math="L\to\infty" />, las lineas espectrales discretas forman un espectro
                 continuo y la suma se transforma en una integral.
               </p>
-              <div style={{
-                marginTop: 12,
-                padding: '10px 12px',
-                border: `1px dashed ${palette.rule}`,
-                borderRadius: 4,
-                fontFamily: "'Inter Tight', sans-serif",
-                fontSize: 13,
-                color: palette.inkSoft,
-              }}>
-                Video de apoyo: <a href="https://youtu.be/jVYs-GTqm5U" target="_blank" rel="noreferrer" style={{ color: palette.accent }}>
-                  derivacion de serie de Fourier a transformada de Fourier
-                </a>
-              </div>
+              <TeX block math={String.raw`\sum_k c_k e^{i\omega_k x}\quad \longrightarrow \quad \int_{-\infty}^{\infty} F(\omega)e^{i\omega x}\,d\omega`} />
             </ModuleCard>
 
             <ModuleCard kind="motivation">
@@ -1043,8 +1049,39 @@ fprintf('Parseval:  tiempo = %.4f   |   frecuencia = %.4f\\n', ...
               <TeX math="X(\omega)" /> es en general complejo: <TeX math="|X(\omega)|" /> es el espectro de magnitud y <TeX math="\arg X(\omega)" /> el espectro de fase.
             </ModuleCard>
 
+            <ModuleCard kind="property" title="Desarrollo: por que aparece la exponencial compleja">
+              <p>
+                La version en senos y cosenos separa dos proyecciones: una par y una impar. Al usar
+                Euler, ambas se condensan en una sola integral compleja:
+              </p>
+              <TeX block math={String.raw`e^{-j\omega t}=\cos(\omega t)-j\sin(\omega t)`} />
+              <TeX block math={String.raw`X(\omega)=\int_{-\infty}^{\infty}x(t)\cos(\omega t)\,dt-j\int_{-\infty}^{\infty}x(t)\sin(\omega t)\,dt`} />
+              <p>
+                Por eso <TeX math="X(\omega)" /> contiene dos piezas: la magnitud dice cuanto hay de
+                esa frecuencia y la fase dice donde queda alineada respecto a la base senoidal.
+              </p>
+            </ModuleCard>
+
             <h3 style={sectionH3}>Pares de transformada comunes</h3>
             <FTPairsTable />
+
+            <ModuleCard kind="example" title="Ejemplo por definicion: x(t)=e^{-|t|}">
+              <p>
+                Este ejemplo es muy util porque obliga a tratar correctamente el valor absoluto. La
+                definicion se parte en dos intervalos:
+              </p>
+              <TeX block math={String.raw`X(\omega)=\int_{-\infty}^{0}e^{t}e^{-j\omega t}\,dt+\int_{0}^{\infty}e^{-t}e^{-j\omega t}\,dt`} />
+              <p>
+                En <TeX math="t<0" />, <TeX math="|t|=-t" />; en <TeX math="t>0" />,
+                <TeX math="|t|=t" />. Evaluando:
+              </p>
+              <TeX block math={String.raw`\int_{-\infty}^{0}e^{(1-j\omega)t}\,dt=\frac{1}{1-j\omega},\qquad \int_0^\infty e^{-(1+j\omega)t}\,dt=\frac{1}{1+j\omega}`} />
+              <TeX block math={String.raw`\boxed{\;X(\omega)=\frac{1}{1-j\omega}+\frac{1}{1+j\omega}=\frac{2}{1+\omega^2}\;}`} />
+              <p>
+                El resultado es real, par y decrece con <TeX math="|\omega|" />: una senal suave y
+                concentrada en el tiempo tiene un espectro con mas energia en bajas frecuencias.
+              </p>
+            </ModuleCard>
 
             <h3 style={sectionH3}>Propiedades fundamentales</h3>
 
